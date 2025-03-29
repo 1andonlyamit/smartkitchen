@@ -1,15 +1,17 @@
 {
-  "name": "smartkitchen",
-  "version": "1.0.0",
-  "description": "hacknuthon6.o project",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "smartkitchen"
-  },
-  "author": "Amit Suthar",
-  "license": "ISC"
+    "name": "smartkitchen",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Smart Kitchen - Full Stack Project",
+    "scripts": {
+        "install-all": "npm install --prefix backend && npm install --prefix frontend",
+        "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
+        "dev": "concurrently \"npm run dev --prefix backend\" \"npm start --prefix frontend\"",
+        "build": "npm run build --prefix frontend"
+    },
+    "dependencies": {
+        "concurrently": "^8.2.1"
+    },
+    "author": "Amit Suthar",
+    "license": "ISC"
 }
