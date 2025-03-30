@@ -13,5 +13,8 @@ module.exports = {
         password: database_password,
         database: database,
         port: database_port
-    }
+    },
+
+    api_url: "https://detect.roboflow.com/vegetables-xfglo/2",
+    api_key: "98KEmw8Avt5OyDkjterT",
 }
