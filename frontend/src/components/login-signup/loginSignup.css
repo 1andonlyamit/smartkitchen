@@ -1,0 +1,148 @@
+
+/* Animated Background */
+@keyframes backgroundFade {
+    0% { background-color: #121212; }
+    50% { background-color: #071f25; }
+    100% { background-color: #121212; }
+}
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #121212;
+    animation: backgroundFade 6s infinite ease-in-out;
+}
+
+
+/* Login Card */
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 2rem;
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Titles and Labels */
+.login-title {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    color: #a0a0a0;
+    font-size: 14px;
+}
+
+.form-label {
+    color: #c8c8c8;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+/* Input Fields */
+.login-input {
+    background-color: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    color: #e0e0e0;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.login-input:focus {
+    background-color: #2a2a2a;
+    border-color: #00b8d4;
+    box-shadow: 0 0 0 0.2rem rgba(0, 184, 212, 0.25);
+    color: #e0e0e0;
+}
+
+/* Checkbox Styling */
+.form-check-input {
+    background-color: #2a2a2a;
+    border-color: #3a3a3a;
+}
+
+.form-check-input:checked {
+    background-color: #00b8d4;
+    border-color: #00b8d4;
+}
+
+.form-check-label {
+    color: #c8c8c8;
+    font-size: 14px;
+}
+
+/* Links */
+.forgot-password, .signup-link {
+    color: #00b8d4;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.forgot-password:hover, .signup-link:hover {
+    color: #00e5ff;
+    text-decoration: underline;
+}
+
+/* Buttons */
+.login-container .btn.btn-cyan, .btn-cyan {
+    background-color: #00b8d4 !important;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.login-container .btn.btn-cyan:hover, .btn-cyan:hover {
+    background-color: #00a0b8;
+    color: white;
+}
+
+.login-container .btn.btn-social, .btn-social {
+    background-color: #2a2a2a;
+    color: #c8c8c8;
+    border: 1px solid #3a3a3a;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.login-container .btn.btn-social:hover, .btn-social:hover {
+    background-color: #333333;
+    color: #e0e0e0;
+}
+
+/* Separator */
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 24px 0;
+    color: #a0a0a0;
+}
+
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #3a3a3a;
+}
+
+.separator span {
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+/* Signup Text */
+.signup-text {
+    color: #a0a0a0;
+    font-size: 14px;
+}
