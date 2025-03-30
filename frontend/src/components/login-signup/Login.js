@@ -21,6 +21,7 @@ const Login = () => {
       },
       body: JSON.stringify(data),
     })
+    .then((response) => response.json())
       .then((response) => {
         if (response.status === true) {
           // return response.json();
