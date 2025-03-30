@@ -113,6 +113,7 @@ class DatabaseService {
 
             await this.initializeUserTables();
             await this.initializeImageTable();
+            await this.initializeFridgeTable();
             // await this.initializeInventoryTables();
             // await this.initializeRecipeTables();
             // await this.initializeOrderTables();
@@ -150,6 +151,20 @@ class DatabaseService {
             console.log('Images table created successfully');
         }
     }
+
+    async initializeFridgeTable() {
+        const tableExists = await this.tableExists('fridge');
+
+        if (!tableExists) {
+            console.log('Creating fridge table...');
+
+            await this.executeQuery(`
+                CREATE TABLE fridge (
+                    id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) NOT NULL, category ENUM('Dairy', 'Fruit', 'Vegetable', 'Meat', 'Seafood', 'Grain', 'Condiment', 'Beverage', 'Other') NOT NULL, expiry_date DATE NOT NULL, purchase_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, quantity FLOAT NOT NULL, cost_per_unit DECIMAL(10,2) NOT NULL)`);
+            console.log('Fridge table created successfully.');
+        }
+    }
+
 
 
 }
