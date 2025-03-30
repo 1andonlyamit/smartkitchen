@@ -66,3 +66,26 @@ exports.getAllImages = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+exports.deleteImage = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const image = await ImageModel.getImageById(id);
+        if (!image) {
+            return res.status(404).json({ message: 'Image not found' });
+        }
+
+        const filePath = path.join(__dirname, '..', image.path);
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+
+        await ImageModel.deleteImage(id);
+
+        res.status(200).json({ message: 'Image deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting image:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};

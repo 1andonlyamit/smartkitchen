@@ -1,3 +1,4 @@
+const { database } = require("../config/master-config");
 const DatabaseService = require("../services/databasehelper");
 const dbService = new DatabaseService();
 
@@ -31,3 +32,12 @@ exports.updateImageProcessing = async (id, item_name, item_category) => {
         [item_name, item_category, id]
     );
 };
+
+exports.deleteImage = async (id) => {
+    try {
+        const query = `DELETE FROM images WHERE id = ?`;
+        return await dbService.executeQuery(query, [id]);
+    } catch (error) {
+        throw error;
+    }
+}
