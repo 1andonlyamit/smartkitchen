@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navbar, Container, Badge } from 'react-bootstrap';
+import { Navbar, Container} from 'react-bootstrap';
 import { Bell } from 'lucide-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

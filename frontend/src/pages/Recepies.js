@@ -1,8 +1,13 @@
 import React from 'react'
+import Layout from '../components/layout/Layout_'
+import Footer from '../components/footer/Footer'
 
 function Recepies() {
   return (
-    <div>Recepies</div>
+    <div>
+      <Layout/>
+      <Footer/>
+    </div>
   )
 }
 

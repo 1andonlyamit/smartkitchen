@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import Layout from "../components/layout/Layout_";
+import Footer from '../components/footer/Footer'
 
 function Analytics() {
   return (
-    <div>Analytics</div>
-  )
+    <div>
+      <Layout />
+      <Footer />
+    </div>
+  );
 }
 
-export default Analytics
+export default Analytics;

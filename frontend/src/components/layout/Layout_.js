@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <div className="d-flex min-vh-100 bg-light">
+    <div className="d-flex min-vh-100 bg-dark">
       <Sidebar isParentOpen={sidebarOpen} setIsParentOpen={setSidebarOpen} />
 
       <div className="flex-grow-1 d-flex flex-column"

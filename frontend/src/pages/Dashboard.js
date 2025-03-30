@@ -1,11 +1,12 @@
 import React from 'react'
-import Layout from '../components/layout/Layout'
+import Layout from '../components/layout/Layout_'
+import Footer from '../components/footer/Footer'
 
 function Dashboard() {
   return (
     <div>
-      {/* <h1>Dashboard</h1> */}
       <Layout/>
+      <Footer/>
     </div>
   )
 }
