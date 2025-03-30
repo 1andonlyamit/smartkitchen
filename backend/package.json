@@ -13,6 +13,7 @@
   "author": "Amit Suthar",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "fs": "^0.0.1-security",
     "mysql2": "^3.14.0",
     "path": "^0.12.7"

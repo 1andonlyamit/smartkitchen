@@ -1,9 +1,10 @@
 const express = require('express');
+const app = express();
 const config = require('./config/master-config');
 const DatabaseService = require('./services/databasehelper');
-const userController = new (require('./controller/users_c'))
-
-const app = express();
+const userController = new (require('./controller/users_c'));
+const cors = require('cors');
+app.use(cors());
 const appPort = config.app_port;
 app.use(express.json());
 
