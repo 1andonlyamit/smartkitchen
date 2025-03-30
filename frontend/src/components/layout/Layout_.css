@@ -1,0 +1,20 @@
+/* Add any custom CSS here */
+.fade-in {
+    animation: fadeIn 0.5s;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  
+  /* Adjust content area to account for mobile bottom nav */
+  @media (max-width: 767.98px) {
+    .main-content {
+      padding-bottom: 60px;
+    }
+  }
