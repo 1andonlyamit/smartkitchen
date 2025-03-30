@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { Navbar, Container, Badge } from 'react-bootstrap';
+=======
+import { Navbar, Container} from 'react-bootstrap';
+>>>>>>> c3386e04fa4cdbb6d9111c12b5cac58a27e7ccdc
 import { Bell } from 'lucide-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -60,4 +64,8 @@ const TopBar = ({ restaurantName = "The Gourmet Kitchen" }) => {
   );
 };
 
+<<<<<<< HEAD
 export default TopBar;
+=======
+export default TopBar;
+>>>>>>> c3386e04fa4cdbb6d9111c12b5cac58a27e7ccdc
