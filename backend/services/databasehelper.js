@@ -165,8 +165,6 @@ class DatabaseService {
         }
     }
 
-
-
 }
 
 module.exports = DatabaseService

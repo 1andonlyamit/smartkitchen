@@ -20,6 +20,9 @@ app.post('/register', (req, res) => userController.register(req, res));
 const inventoryRoutes = require('./router/inventory_r');
 app.use('/inventory', inventoryRoutes);
 
+const fridgeRoutes = require('./router/fridge_r');
+app.use('/fridge', fridgeRoutes);
+
 app.use("*", function (req, res) {
     res.status(200).send({ "message": "Access Denied" })
 })
