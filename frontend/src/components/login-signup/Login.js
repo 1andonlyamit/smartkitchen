@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './loginSignup.css';
 import Footer from '../footer/Footer';
 
@@ -12,7 +12,27 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login submitted', { email, password, rememberMe });
+    const loginApi="http://localhost:8888/login"
+    const data = { email, password, rememberMe };
+    fetch(loginApi, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.status === true) {
+          // return response.json();
+          navigate('/dashboard');
+        } else if (response.status === false) {
+          // return response.json();
+          alert(response.message);
+        } else {
+          throw new Error('Login failed');
+        }
+      })
+    // console.log('Login submitted', { email, password, rememberMe });
     navigate('/dashboard');
     // Add your authentication logic here
   };
@@ -67,7 +87,8 @@ const Login = () => {
                 Remember me
               </label>
             </div>
-            <a href="#" className="forgot-password">Forgot your password?</a>
+            {/* <a href="#" className="forgot-password">Forgot your password?</a> */}
+            <Link to='/' className='forgot-password'> Forgot your password?</Link>
           </div>
           
           <button type="submit" className="btn btn-cyan w-100">

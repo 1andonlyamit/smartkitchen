@@ -18,7 +18,27 @@ const Signup = () => {
             alert('Passwords do not match');
             return;
         }
-        console.log('Signup submitted', { name, email, password });
+        // console.log('Signup submitted', { name, email, password });
+        const signupApi = "http://localhost:8888/signup"
+        const data = { name, email, password };
+        fetch(signupApi, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => {
+                if (response.status === true) {
+                    // return response.json();
+                    navigate('/login');
+                } else if (response.status === false) {
+                    // return response.json();
+                    alert(response.message);
+                } else {
+                    throw new Error('Signup failed');
+                }
+            })
         navigate('/login');
         // Add your signup logic here
     };

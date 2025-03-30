@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Login from "./components/login-signup/Login";
 import Signup from "./components/login-signup/Signup";
 import Dashboard from "./pages/Dashboard";
