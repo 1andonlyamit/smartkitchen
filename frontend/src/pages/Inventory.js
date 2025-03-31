@@ -261,6 +261,12 @@ function Inventory() {
 
       const result = await response.json();
       console.log("Upload successful:", result);
+      //here i want to close my scan image component
+      setShowModal(false);
+      setImagePreview(null);
+      setCameraActive(false);
+      setImageFile(null);
+      alert("Image uploaded successfully!");
     } catch (error) {
       console.error("Error uploading image:", error);
     }

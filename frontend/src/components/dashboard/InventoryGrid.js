@@ -1,54 +1,113 @@
-import React from "react";
+import React, { useState } from "react";
 import InventoryCard from "../ui/InventoryCard";
 
 function InventoryGrid() {
+  // Hardcoded inventory data with more items
+  const inventoryItems = [
+    {
+      id: 1,
+      image: "/frontend/uploads/chickhen.jpg",
+      name: "Chicken",
+      weight: 45.5,
+      expiryDate: "Apr 7, 2025",
+      daysLeft: 7,
+      status: "FRESH"
+    },
+    {
+      id: 2,
+      image: "/frontend/uploads/tomato.jpg",
+      name: "Tomatoes",
+      weight: 20.2,
+      expiryDate: "Apr 3, 2025",
+      daysLeft: 3,
+      status: "USE SOON"
+    },
+    {
+      id: 3,
+      image: "/frontend/uploads/apple.jpg",
+      name: "Apples",
+      weight: 15.8,
+      expiryDate: "Apr 10, 2025",
+      daysLeft: 10,
+      status: "FRESH"
+    },
+    {
+      id: 4,
+      image: "/frontend/uploads/milk.jpg",
+      name: "Milk",
+      weight: 30.0,
+      expiryDate: "Apr 2, 2025",
+      daysLeft: 2,
+      status: "USE SOON"
+    },
+    {
+      id: 5,
+      image: "/frontend/uploads/lettuce.jpg",
+      name: "Lettuce",
+      weight: 10.5,
+      expiryDate: "Apr 4, 2025",
+      daysLeft: 4,
+      status: "USE SOON"
+    },
+    {
+      id: 6,
+      image: "/frontend/uploads/cheese.jpg",
+      name: "Cheese",
+      weight: 12.3,
+      expiryDate: "Apr 15, 2025",
+      daysLeft: 15,
+      status: "FRESH"
+    }
+  ];
+
+  // Filter state
+  const [filterStatus, setFilterStatus] = useState("ALL");
+
+  // Filter function
+  const filteredItems = filterStatus === "ALL" 
+    ? inventoryItems 
+    : inventoryItems.filter(item => item.status === filterStatus);
+
   return (
-    <div>
-      {/* 1 */}
-      <div className="container mt-4">
-      <div className="row row-cols-3 g-4">
-        <div className="col">
-          <InventoryCard
-            image="/frontend/uploads/chickhen.jpg"
-            name="Chicken"
-            weight={45.5}
-            expiryDate="Nov 30, 2023"
-            daysLeft={7}
-            status="FRESH"
-          />
-        </div>
-        <div className="col">
-          <InventoryCard
-            image="/frontend/uploads/chickhen.jpg"
-            name="33333"
-            weight={45.5}
-            expiryDate="Nov 30, 2023"
-            daysLeft={7}
-            status="FRESH"
-          />
-        </div>
-        <div className="col">
-          <InventoryCard
-            image="https://media.istockphoto.com/id/184276818/photo/red-apple.jpg?s=612x612&w=0&k=20&c=NvO-bLsG0DJ_7Ii8SSVoKLurzjmV0Qi4eGfn6nW3l5w="
-            name="Apple"
-            weight={45.5}
-            expiryDate="Nov 30, 2023"
-            daysLeft={7}
-            status="FRESH"
-          />
-        </div>
-        <div className="col">
-          <InventoryCard
-            image="/frontend/uploads/chickhen.jpg"
-            name="33333"
-            weight={45.5}
-            expiryDate="Nov 30, 2023"
-            daysLeft={7}
-            status="FRESH"
-          />
+    <div className="container-fluid px-4 py-3">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h5 className="mb-0 text-white">Current Inventory</h5>
+        <div className="btn-group">
+          <button 
+            className={`btn ${filterStatus === "ALL" ? "btn-info" : "btn-outline-info"}`}
+            onClick={() => setFilterStatus("ALL")}
+          >
+            All
+          </button>
+          <button 
+            className={`btn ${filterStatus === "FRESH" ? "btn-info" : "btn-outline-info"}`}
+            onClick={() => setFilterStatus("FRESH")}
+          >
+            Fresh
+          </button>
+          <button 
+            className={`btn ${filterStatus === "USE SOON" ? "btn-info" : "btn-outline-info"}`}
+            onClick={() => setFilterStatus("USE SOON")}
+          >
+            Use Soon
+          </button>
         </div>
       </div>
-        </div>
+      
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {filteredItems.map(item => (
+          <div key={item.id} className="col">
+            <InventoryCard
+              image={item.image}
+              name={item.name}
+              weight={item.weight}
+              expiryDate={item.expiryDate}
+              daysLeft={item.daysLeft}
+              status={item.status}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
