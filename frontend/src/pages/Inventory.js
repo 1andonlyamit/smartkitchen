@@ -2,118 +2,51 @@ import React, { useState, useRef, useEffect } from "react";
 import Layout from "../components/layout/Layout_";
 import Footer from "../components/footer/Footer";
 import PreviewCard from "../components/ui/PreviewCard";
-import ConfirmBox from "../components/ui/ConfirmBox"; 
+import ConfirmBox from "../components/ui/ConfirmBox";
 import StartProcess from "../components/ui/StartProcess"; // Import the StartProcess component
-import { Camera, Search, Filter, SortDesc, Plus, Eye } from "lucide-react";
+import {
+  Camera,
+  Search,
+  Filter,
+  SortDesc,
+  Eye,
+  RefreshCcw,
+} from "lucide-react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Inventory() {
-  const [inventory, setInventory] = useState([
-    {
-      id: 1,
-      filename: "1743334457481_tomato.jpg",
-      path: "/uploads/1743334457481_tomato.jpg",
-      processed: 1,
-      item_name: "Red Bell Pepper",
-      item_category: "vegetable",
-      uploaded_at: "2025-03-30T11:34:17.000Z",
-    },
-    {
-      id: 2,
-      filename: "1743334457482_chicken.jpg",
-      path: "/uploads/1743334457482_chicken.jpg",
-      processed: 1,
-      item_name: "Chicken Breast",
-      item_category: "meat",
-      uploaded_at: "2025-03-30T12:00:00.000Z",
-    },
-    {
-      id: 3,
-      filename: "1743334457483_olive_oil.jpg",
-      path: "/uploads/1743334457483_olive_oil.jpg",
-      processed: 0,
-      item_name: "Unknown",
-      item_category: "Unknown",
-      uploaded_at: "2025-03-30T12:30:00.000Z",
-    },
-    {
-      id: 4,
-      filename: "1743334457484_rice.jpg",
-      path: "/uploads/1743334457484_rice.jpg",
-      processed: 1,
-      item_name: "Rice",
-      item_category: "grains",
-      uploaded_at: "2025-03-30T13:00:00.000Z",
-    },
-    {
-      id: 5,
-      filename: "1743334457485_milk.jpg",
-      path: "/uploads/1743334457485_milk.jpg",
-      processed: 0,
-      item_name: "Unknown",
-      item_category: "Unknown",
-      uploaded_at: "2025-03-30T13:30:00.000Z",
-    },
-    {
-      id: 6,
-      filename: "1743334457486_bell_peppers.jpg",
-      path: "/uploads/1743334457486_bell_peppers.jpg",
-      processed: 1,
-      item_name: "Bell Peppers",
-      item_category: "vegetable",
-      uploaded_at: "2025-03-30T14:00:00.000Z",
-    },
-    {
-      id: 7,
-      filename: "1743334457487_ground_beef.jpg",
-      path: "/uploads/1743334457487_ground_beef.jpg",
-      processed: 1,
-      item_name: "Ground Beef",
-      item_category: "meat",
-      uploaded_at: "2025-03-30T14:30:00.000Z",
-    },
-    {
-      id: 8,
-      filename: "1743334457488_flour.jpg",
-      path: "/uploads/1743334457488_flour.jpg",
-      processed: 1,
-      item_name: "Flour",
-      item_category: "baking",
-      uploaded_at: "2025-03-30T15:00:00.000Z",
-    },
-  ]);
-  
+  const [inventory, setInventory] = useState([]);
+
   const [previewItem, setPreviewItem] = useState(null);
-  
+
   // Add state for confirmation dialogs
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     message: "",
-    itemId: null
+    itemId: null,
   });
-  
+
   // Add state for process dialog
   const [processDialog, setProcessDialog] = useState({
     isOpen: false,
-    item: null
+    item: null,
   });
 
   useEffect(() => {
-    // Function to fetch data from API
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:8888/inventory/get-data"); // Replace with your API URL
-        const result = await response.json();
-        setInventory(result);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
     const intervalId = setInterval(fetchData, 1 * 60 * 1000);
-    return () => clearInterval(intervalId); // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:8888/inventory/get-data");
+      const result = await response.json();
+      setInventory(result);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -129,8 +62,12 @@ function Inventory() {
   // Filter inventory based on search term and category
   const filteredInventory = inventory.filter(
     (item) =>
-      (item.item_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.item_category.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      ((item.item_name?.toLowerCase() || "").includes(
+        searchTerm?.toLowerCase() || ""
+      ) ||
+        (item.item_category?.toLowerCase() || "").includes(
+          searchTerm?.toLowerCase() || ""
+        )) &&
       (selectedCategory === "" || item.item_category === selectedCategory)
   );
 
@@ -148,7 +85,7 @@ function Inventory() {
     setConfirmDialog({
       isOpen: true,
       message: "Are you sure you want to remove this item?",
-      itemId: itemId
+      itemId: itemId,
     });
   };
 
@@ -157,13 +94,18 @@ function Inventory() {
     if (confirmDialog.itemId) {
       try {
         // Call your API to remove the item
-        const response = await fetch(`http://localhost:8888/inventory/remove/${confirmDialog.itemId}`, {
-          method: "DELETE",
-        });
-        
+        const response = await fetch(
+          `http://localhost:8888/inventory/delete/${confirmDialog.itemId}`,
+          {
+            method: "POST",
+          }
+        );
+
         if (response.ok) {
           // Remove item from local state
-          setInventory(inventory.filter(item => item.id !== confirmDialog.itemId));
+          setInventory(
+            inventory.filter((item) => item.id !== confirmDialog.itemId)
+          );
           console.log("Item removed successfully!");
         } else {
           console.error("Failed to remove item");
@@ -172,49 +114,54 @@ function Inventory() {
         console.error("Error removing item:", error);
       }
     }
-    
+
     // Close the confirmation dialog
     setConfirmDialog({ isOpen: false, message: "", itemId: null });
   };
-  
+
   // Function to handle process confirmation
   const handleProcessItem = (item) => {
     setProcessDialog({
       isOpen: true,
-      item: item
+      item: item,
     });
   };
-  
+
   // Function to confirm processing an item
   const confirmProcessItem = async () => {
     if (processDialog.item) {
       try {
         // Call your API to process the item
-        const response = await fetch(`http://localhost:8888/inventory/process/${processDialog.item.id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            image_path: processDialog.item.path
-          }),
-        });
-        
+        const response = await fetch(
+          `http://localhost:8888/inventory/process/${processDialog.item.id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image_path: processDialog.item.path,
+            }),
+          }
+        );
+
         if (response.ok) {
           const result = await response.json();
-          
+
           // Update the processed item in the inventory
-          setInventory(inventory.map(item => 
-            item.id === processDialog.item.id 
-              ? { 
-                  ...item, 
-                  processed: 1,
-                  item_name: result.item_name || item.item_name,
-                  item_category: result.item_category || item.item_category
-                } 
-              : item
-          ));
-          
+          setInventory(
+            inventory.map((item) =>
+              item.id === processDialog.item.id
+                ? {
+                    ...item,
+                    processed: 1,
+                    item_name: result.item_name || item.item_name,
+                    item_category: result.item_category || item.item_category,
+                  }
+                : item
+            )
+          );
+
           console.log("Item processed successfully!");
         } else {
           console.error("Failed to process item");
@@ -223,17 +170,19 @@ function Inventory() {
         console.error("Error processing item:", error);
       }
     }
-    
+
     // Close the process dialog
     setProcessDialog({ isOpen: false, item: null });
   };
 
   // Sort inventory based on selection
   const sortedInventory = [...filteredInventory].sort((a, b) => {
-    if (sortBy === "name") return a.item_name.localeCompare(b.item_name);
-    if (sortBy === "category") return a.item_category.localeCompare(b.item_category);
-    if (sortBy === "date") return new Date(a.uploaded_at) - new Date(b.uploaded_at);
-    if (sortBy === "id") return a.id - b.id;
+    if (sortBy === "name") return a.item_name?.localeCompare(b.item_name) || 0;
+    if (sortBy === "category")
+      return a.item_category?.localeCompare(b.item_category) || 0;
+    if (sortBy === "date")
+      return new Date(a.uploaded_at || 0) - new Date(b.uploaded_at || 0);
+    if (sortBy === "id") return (a.id ?? 0) - (b.id ?? 0);
     return 0;
   });
 
@@ -305,7 +254,7 @@ function Inventory() {
     formData.append("image", imageFile); // Append raw file
 
     try {
-      const response = await fetch("http://8888/inventory/upload", {
+      const response = await fetch("http://localhost:8888/inventory/upload", {
         method: "POST",
         body: formData,
       });
@@ -320,12 +269,12 @@ function Inventory() {
   // Format date from ISO string to readable format
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'short', 
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -421,31 +370,41 @@ function Inventory() {
                     {sortedInventory.map((item) => {
                       return (
                         <tr key={item.id} className="border-secondary">
-                          <td className="align-middle">{item.id}</td>
-                          <td className="align-middle">{item.item_name}</td>
-                          <td className="align-middle">{item.item_category}</td>
-                          <td className="align-middle">{formatDate(item.uploaded_at)}</td>
+                          <td className="align-middle">{item.id || ""}</td>
                           <td className="align-middle">
-                            <span className={`badge ${item.processed ? 'bg-success' : 'bg-warning'}`}>
-                              {item.processed ? 'Processed' : 'Pending'}
+                            {item.item_name || "Undefined"}
+                          </td>
+                          <td className="align-middle">
+                            {item.item_category || "Undefined"}
+                          </td>
+                          <td className="align-middle">
+                            {formatDate(item.uploaded_at) || ""}
+                          </td>
+                          <td className="align-middle">
+                            <span
+                              className={`badge ${
+                                item.processed ? "bg-success" : "bg-warning"
+                              }`}
+                            >
+                              {item.processed ? "Processed" : "Pending"}
                             </span>
                           </td>
                           <td className="align-middle">
-                            <button 
+                            <button
                               className="btn btn-sm btn-outline-info me-1 d-inline-flex align-items-center"
                               onClick={() => handleViewItem(item)}
                             >
                               <Eye size={16} className="me-1" />
                               View
                             </button>
-                            <button 
+                            <button
                               className="btn btn-sm btn-outline-success me-1"
                               onClick={() => handleProcessItem(item)}
                               disabled={item.processed === 1}
                             >
                               Process
                             </button>
-                            <button 
+                            <button
                               className="btn btn-sm btn-outline-danger"
                               onClick={() => handleRemoveItem(item.id)}
                             >
@@ -463,9 +422,12 @@ function Inventory() {
 
           {/* Add Item Button */}
           <div className="text-end mb-4">
-            <button className="btn btn-success d-inline-flex align-items-center">
-              <Plus size={20} className="me-2" />
-              <span>Add New Item</span>
+            <button
+              className="btn btn-success d-inline-flex align-items-center"
+              onClick={fetchData}
+            >
+              <RefreshCcw size={20} className="me-2" />
+              <span>Refresh</span>
             </button>
           </div>
         </div>
@@ -615,10 +577,12 @@ function Inventory() {
         isOpen={confirmDialog.isOpen}
         message={confirmDialog.message}
         onConfirm={confirmRemoveItem}
-        onCancel={() => setConfirmDialog({ isOpen: false, message: "", itemId: null })}
+        onCancel={() =>
+          setConfirmDialog({ isOpen: false, message: "", itemId: null })
+        }
         title="Confirm Removal"
       />
-      
+
       {/* Processing Dialog */}
       <StartProcess
         isOpen={processDialog.isOpen}
