@@ -10,6 +10,7 @@ import Recepies from "./pages/Recepies";
 import Inventory from "./pages/Inventory";
 import Forecasting from "./pages/Forecasting";
 import Analytics from "./pages/Analytics";
+import Fridge from "./pages/Fridge";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/inventory" element={<Inventory/>}/>
         <Route path="/forecasting" element={<Forecasting/>}/>
         <Route path="/analytics" element={<Analytics/>}/>
+        <Route path="/fridge" element={<Fridge/>}/>
       </Routes>
       </div>
   );

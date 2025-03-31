@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+// import { Button } from 'react-bootstrap';
 import {
   House,
   ClipboardData,
@@ -8,7 +9,8 @@ import {
   Calendar,
   Gear,
   List,
-  X
+  X,
+  BoxSeam // Icon for the Fridge
 } from "react-bootstrap-icons";
 
 const Sidebar = ({ isParentOpen, setIsParentOpen }) => {
@@ -18,7 +20,9 @@ const Sidebar = ({ isParentOpen, setIsParentOpen }) => {
     { name: "Recipes", icon: <Book size={20} />, path: "/recepies" },
     { name: "Analytics", icon: <BarChart size={20} />, path: "/analytics" },
     { name: "Forecasting", icon: <Calendar size={20} />, path: "/forecasting" },
-    { name: "Settings", icon: <Gear size={20} />, path: "/settings" }
+    { name: "Settings", icon: <Gear size={20} />, path: "/settings" },
+    // { name: "Fridge", icon: <Gear size={20} />, path: "/Fridge" }
+
   ];
 
   const location = useLocation();
@@ -60,6 +64,10 @@ const Sidebar = ({ isParentOpen, setIsParentOpen }) => {
     const newState = !isOpen;
     setIsOpen(newState);
     if (setIsParentOpen) setIsParentOpen(newState);
+  };
+
+  const openFridge = () => {
+    navigate('/fridge');
   };
 
   return (
@@ -131,6 +139,29 @@ const Sidebar = ({ isParentOpen, setIsParentOpen }) => {
               </span>
             </button>
           ))}
+        </div>
+
+        {/* Open Fridge Button at the Bottom */}
+        <div className="mt-auto p-3">
+          <button
+            onClick={openFridge}
+            className="w-100 border-0 text-start d-flex align-items-center py-3 px-4"
+            style={{
+              transition: "all 0.2s",
+              backgroundColor: "#4CAF50", // Distinct color for the button
+              color: "#ffffff"
+            }}
+          >
+            <span className="d-inline-flex justify-content-center align-items-center">
+              <BoxSeam size={20} />
+            </span>
+            <span
+              className={`ms-3 ${!isOpen ? "d-none" : ""}`}
+              style={{ transition: "opacity 0.2s", opacity: isOpen ? 1 : 0, whiteSpace: "nowrap" }}
+            >
+              Open Fridge
+            </span>
+          </button>
         </div>
       </div>
     </>
