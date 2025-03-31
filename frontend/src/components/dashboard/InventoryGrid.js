@@ -6,7 +6,7 @@ function InventoryGrid() {
   const inventoryItems = [
     {
       id: 1,
-      image: "/frontend/uploads/chickhen.jpg",
+      image: "/frontend/static/uploads/chicken.jpg",
       name: "Chicken",
       weight: 45.5,
       expiryDate: "Apr 7, 2025",
@@ -15,7 +15,7 @@ function InventoryGrid() {
     },
     {
       id: 2,
-      image: "/frontend/uploads/tomato.jpg",
+      image: "/frontend/static/uploads/chicken.jpg",
       name: "Tomatoes",
       weight: 20.2,
       expiryDate: "Apr 3, 2025",
@@ -24,7 +24,7 @@ function InventoryGrid() {
     },
     {
       id: 3,
-      image: "/frontend/uploads/apple.jpg",
+      image: "/frontend/static/uploads/chicken.jpg",
       name: "Apples",
       weight: 15.8,
       expiryDate: "Apr 10, 2025",
@@ -33,7 +33,7 @@ function InventoryGrid() {
     },
     {
       id: 4,
-      image: "/frontend/uploads/milk.jpg",
+      image: "/frontend/static/uploads/chicken.jpg",
       name: "Milk",
       weight: 30.0,
       expiryDate: "Apr 2, 2025",
@@ -42,7 +42,7 @@ function InventoryGrid() {
     },
     {
       id: 5,
-      image: "/frontend/uploads/lettuce.jpg",
+      image: "/frontend/static/uploads/chicken.jpg",
       name: "Lettuce",
       weight: 10.5,
       expiryDate: "Apr 4, 2025",
@@ -51,7 +51,7 @@ function InventoryGrid() {
     },
     {
       id: 6,
-      image: "/frontend/uploads/cheese.jpg",
+      image: "/frontend/static/uploads/chicken.jpg",
       name: "Cheese",
       weight: 12.3,
       expiryDate: "Apr 15, 2025",
