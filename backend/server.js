@@ -23,6 +23,9 @@ app.use('/inventory', inventoryRoutes);
 const fridgeRoutes = require('./router/fridge_r');
 app.use('/fridge', fridgeRoutes);
 
+const recipeRoutes = require('./router/recipe_r');
+app.use('/recipe', recipeRoutes);
+
 app.use("*", function (req, res) {
     res.status(200).send({ "message": "Access Denied" })
 })
