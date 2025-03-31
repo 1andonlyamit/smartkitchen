@@ -5,7 +5,11 @@ import Footer from '../components/footer/Footer'
 function Recepies() {
   return (
     <div>
-      <Layout/>
+      <Layout>
+        <h1 className="text-light">Recipe Suggestions</h1>
+        <p className="text-muted">Here are some recipe suggestions based on your inventory.</p>
+        
+      </Layout>
       <Footer/>
     </div>
   )
